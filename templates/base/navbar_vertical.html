@@ -1,0 +1,108 @@
+<nav id="sidebar" class="sidebar">
+    <div class="sidebar-content ">
+        {% if user.user_role in ['SHIPPER'] %}
+            <a class="sidebar-brand" href="/shipper/dashboard">
+        {% else %}
+            <a class="sidebar-brand" href="/managers/dashboard">
+        {% endif %}
+
+            <i class="align-middle" data-feather="gitlab"></i>
+            <span class="align-middle">Hana Ecosystem</span>
+        </a>
+
+        <ul class="sidebar-nav">
+            <!-- Section for shipper -->
+            {% if user.user_role in ['SHIPPER', 'ADMIN'] %}
+            <li class="sidebar-header">
+                Shippers
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ request.url_for('shipper_dashboard') }}">
+                    <i class="align-middle" data-feather="pie-chart"></i> <span class="align-middle">Dashboard</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ request.url_for('bills_audit_bill') }}">
+                    <i class="align-middle" data-feather="command"></i> <span class="align-middle">Kiểm đơn hàng</span>
+                    <span class="sidebar-badge badge badge-secondary">Special</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ request.url_for('shipper_add_bills') }}">
+                    <i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">Nhập đơn ship</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ request.url_for('shipper_add_bills_by_camera') }}">
+                    <i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">Nhập đơn ship 📷 </span>
+                    <span class="sidebar-badge badge badge-primary">New</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ request.url_for('bills_search_bill') }}">
+                    <i class="align-middle" data-feather="search"></i> <span class="align-middle">Tra cứu đơn</span>
+                    <span class="sidebar-badge badge badge-primary">New</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ request.url_for('shipper_list_bills') }}">
+                    <i class="align-middle" data-feather="database"></i> <span class="align-middle">Quản lý đơn</span>
+                </a>
+            </li>
+            {% endif %}
+
+            <!-- Section for manager -->
+            {% if user.user_role in ['MANAGER', 'ADMIN'] %}
+            <li class="sidebar-header">
+                Managers
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ request.url_for('manager_dashboard') }}">
+                    <i class="align-middle" data-feather="pie-chart"></i> <span class="align-middle">Dashboard</span>
+                    <span class="sidebar-badge badge badge-secondary">Special</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ request.url_for('bills_search_bill') }}">
+                    <i class="align-middle" data-feather="search"></i> <span class="align-middle">Tra cứu đơn</span>
+                    <span class="sidebar-badge badge badge-primary">New</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ request.url_for('manager_list_request') }}">
+                    <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Quản lý yêu cầu</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ request.url_for('bills_audit_bill') }}">
+                    <i class="align-middle" data-feather="command"></i> <span class="align-middle">Kiểm đơn hàng</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ request.url_for('manager_list_bill_to_audit') }}">
+                    <i class="align-middle" data-feather="terminal"></i> <span class="align-middle">Lấy Bills Audit</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ request.url_for('manager_get_new_token') }}">
+                    <i class="align-middle" data-feather="shuffle"></i> <span class="align-middle">Reload KiotViet Token</span>
+                </a>
+            </li>
+            {% endif %}
+
+        </ul>
+
+        <div class="sidebar-bottom d-none d-lg-block">
+            <div class="media">
+                <img class="rounded-circle mr-3" src="{{ url_for('static', path='/img/avatars/hana-logo2.jpg') }}" width="40" height="40">
+                <div class="media-body">
+                    <h5 class="mb-1">{{user.username}}</h5>
+                    <div>
+                        <i class="fas fa-circle text-success"></i> Online
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</nav>

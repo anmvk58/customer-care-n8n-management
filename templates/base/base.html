@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" type="image/x-icon" href="{{ url_for('static', path='img/icon/favicon.ico') }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no, user-scalable=no">
+	<meta name="description" content="Một sản phẩm hỗ trợ nhà bán hàng và shipper !">
+	<meta name="format-detection" content="telephone=yes">
+
+	{% block title %}
+		<title>Base Title</title>
+	{% endblock %}
+
+<!--	<link rel="icon" type="image/x-icon" href="/favicon.ico">-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='/css/classic.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='/css/base.css') }}">
+	<link rel="preconnect" href="//fonts.gstatic.com/" crossorigin="">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+	{% block css %}
+	{% endblock %}
+
+	<style>
+		body {
+			opacity: 0;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="loading-overlay" class="loading-overlay">
+		<div class="spinner-border text-primary mr-2" role="status">
+			<span class="sr-only">Loading...</span>
+		</div>
+	</div>
+	<div class="wrapper">
+
+		{% include 'base/navbar_vertical.html' %}
+
+		<div class="main">
+
+			{% include 'base/navbar_horizontal.html' %}
+
+			<main class="content">
+				<div class="container-fluid p-0">
+
+				{% block content %}
+
+    			{% endblock %}
+
+				</div>
+			</main>
+
+			{% include 'base/footer.html' %}
+
+		</div>
+	</div>
+
+	<script src="{{ url_for('static', path='/js/app.js') }}" ></script>
+	<script src="{{ url_for('static', path='/js/base.js') }}" ></script>
+
+{% block script %}
+{% endblock %}
+</body>
+
+</html>
