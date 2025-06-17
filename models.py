@@ -38,3 +38,7 @@ class CompanyEventScheduler(Base):
     is_active = Column(Boolean, default=True)
     is_loop = Column(Boolean, default=True)
     create_time = Column(TIMESTAMP, server_default=func.now())
+
+    @property
+    def full_event(self):
+        return f"{self.event_day}-{self.event_month}-{self.event_year}"

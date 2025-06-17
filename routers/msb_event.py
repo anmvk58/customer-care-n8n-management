@@ -39,13 +39,13 @@ async def get_event_by_filter(user: user_dependency,
     try:
         query = db.query(CompanyEventScheduler)
 
-        if event_filter.company_name or event_filter.company_name.strip() == "":
+        if event_filter.company_name and event_filter.company_name.strip() != "":
             query = query.filter(CompanyEventScheduler.company_name.ilike(f"%{event_filter.company_name}%"))
 
-        if event_filter.event_object or event_filter.event_object.strip() == "":
+        if event_filter.event_object and event_filter.event_object.strip() != "":
             query = query.filter(CompanyEventScheduler.event_object.ilike(f"%{event_filter.event_object}%"))
 
-        if event_filter.event_type or event_filter.event_type.strip() == "":
+        if event_filter.event_type and event_filter.event_type.strip() != "":
             query = query.filter(CompanyEventScheduler.event_type == event_filter.event_type)
 
         if event_filter.event_date == get_current_date():
