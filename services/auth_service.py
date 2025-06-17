@@ -6,6 +6,7 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import jwt, JWTError, ExpiredSignatureError
 from passlib.context import CryptContext
 from starlette import status
+from starlette.responses import RedirectResponse
 
 from models import Users
 
@@ -134,3 +135,8 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
         print(e)
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Could_not_validate_user')
 
+
+def redirect_to_login():
+    redirect_response = RedirectResponse(url="/auth/login-page", status_code=status.HTTP_302_FOUND)
+    redirect_response.delete_cookie(key="access_token")
+    return redirect_response
