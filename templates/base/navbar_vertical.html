@@ -9,11 +9,17 @@
         <ul class="sidebar-nav">
             <!-- Section for manager -->
             <li class="sidebar-header">
-                Managers
+                Chức năng
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ request.url_for('msb_event_create_event') }}">
+                    <i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">Tạo mới sự kiện</span>
+                    <span class="sidebar-badge badge badge-primary">Primary</span>
+                </a>
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ request.url_for('msb_event_list_event') }}">
-                    <i class="align-middle" data-feather="pie-chart"></i> <span class="align-middle">Quản lý sự kiện</span>
+                    <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Quản lý sự kiện</span>
                     <span class="sidebar-badge badge badge-secondary">Mới</span>
                 </a>
             </li>

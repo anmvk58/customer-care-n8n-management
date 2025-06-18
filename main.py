@@ -39,4 +39,4 @@ async def home_page(request: Request):
 
     except Exception as e:
         print(e)
-        # return redirect_to_login()
+        return redirect_to_login()

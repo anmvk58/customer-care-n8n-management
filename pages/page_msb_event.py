@@ -40,3 +40,21 @@ async def render_msb_event_page_list_event(request: Request):
     except Exception as e:
         print(e)
         return redirect_to_login()
+
+
+@router.get('/create-event', name="msb_event_create_event")
+async def render_msb_event_page_create_event(request: Request):
+    try:
+        user = await get_current_user(request.cookies.get("access_token"))
+
+        if user is None:
+            return redirect_to_login()
+
+        return templates.TemplateResponse(name="msb_event_page/create-event.html",
+                                          context={
+                                              "request": request,
+                                              "user": user
+                                          })
+    except Exception as e:
+        print(e)
+        return redirect_to_login()

@@ -8,7 +8,33 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Hello World</h1>
+<h1 class="h2 mb-3 text-primary">Xin chào, <span class="text-primary">{{user.first_name}}</span></h1>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card p-3 p-lg-4">
+            <div class="card-header">
+                <h3 class=" mb-0 text-primary">Giới thiệu</h3>
+            </div>
+            <div class="card-body">
+
+                <div id="introduction">
+                  <p class="lead"><strong class="text-danger">MCC (MSB Customer Care)</strong> là sản phẩm dự thi AI Arena - hưởng ứng phong trào <strong>"Bình dân học vụ số"</strong> của Ngân hàng Nhà nước tại MSB ! </p>
+
+                  <p class="lead">Nằm trong bộ công cụ bán hàng (Sale Kit), sản phẩm <strong class="text-danger">MSB Customer Care</strong> là công cụ đắc lực trong việc chăm sóc và theo đuổi khách hàng doanh nghiệp
+                    có ứng dụng AI để tạo nội dung chăm sóc theo các sự kiện như chúc mừng <strong class="text-primary">sinh nhật khách hàng</strong>, chúc mừng <strong class="text-primary">ngày thành lập doanh nghiệp</strong>
+                    hay <strong class="text-primary">nhắc active hạn mức</strong> sau khi đã được phê duyệt cấp vốn !</p>
+
+                  <p class="lead">Chúng tôi hi vọng rằng, với sản phẩm này, các cán bộ bán hàng sẽ có thêm công cụ mạnh mẽ để tiếp cận và chăm sóc khách hàng doanh nghiệp một cách <strong class="text-danger">thuận ích</strong> hơn !</p>
+
+<!--                    <a href="docs-installation.html" class="btn btn-primary">Getting Started</a>-->
+                </div>
+                <!-- /#introduction -->
+
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block script %}

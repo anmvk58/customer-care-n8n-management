@@ -25,10 +25,10 @@ function searchEvent(){
             url: '/msb-event/filter-event',
             type: 'POST',
             data: JSON.stringify({
-                company_name: "hana",
-                event_object: "",
-                event_type: "",
-                event_date: 20250617
+                company_name: input_company_name,
+                event_object: input_event_object,
+                event_type: input_event_type,
+                event_date: convertDateSingle(input_date)
             }),
             headers: {
                 'Content-Type': 'application/json',
@@ -39,17 +39,23 @@ function searchEvent(){
                     console.log(response)
                     $("#event_data").empty();
                     response.data.forEach((item, index) => {
+
                         $("#event_data").append(
                         '<tr>' +
                             '<td>'  + (index + 1) + '</td>' +
                             '<td>'  + item.company_name + '</td>' +
                             '<td>'  + item.event_object + '</td>' +
                             '<td>'  + item.event_position + '</td>' +
+                            '<td>'  + item.event_type + '</td>' +
                             '<td>'  + item.full_event + '</td>' +
                             '<td>'  + item.promt + '</td>' +
                             '<td>'  + item.received_email + '</td>' +
-                            '<td>'  + item.is_active + '</td>' +
-                            '<td>'  + item.is_loop + '</td>' +
+                            '<td><span class="badge badge-' + (item.is_active == false ? 'danger"> Inactive </span></td>' : 'success"> Active </span></td>') +
+                            '<td><span class="badge badge-' + (item.is_loop == false ? 'warning"> single-run </span></td>' : 'info"> Loop </span></td>') +
+                            '<td>' +
+                                '<a href="#"  onclick="getDetailEvent(' + item.id + ')"' +
+                                '<i class="align-middle far fa-fw fa-edit"></i></a>' +
+                            '</td>' +
                         '</tr>'
                         )
                     });
