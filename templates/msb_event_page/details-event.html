@@ -1,0 +1,95 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    <title>Details Event - MSB Customer Care</title>
+{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-3 text-primary">Chi tiết Sự kiện</h1>
+<input type="text" class="form-control visible" id="event_id" value="" readonly style="display: none">
+<!--<nav aria-label="breadcrumb">-->
+<!--    <ol class="breadcrumb">-->
+<!--        <li class="breadcrumb-item"><a href="/msb-event/list-event">Quay lại</a></li>-->
+<!--    </ol>-->
+<!--</nav>-->
+
+<div class="row">
+    <div class="col-12 col-xl-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title text-secondary">Thông tin chi tiết sự kiện</h5>
+<!--                <h6 class="card-subtitle text-muted">Nhập các trường thông tin bên dưới để tạo sự kiện</h6>-->
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label class="form-label">Tên doanh nghiệp</label>
+                            <input type="text" class="form-control" id="company_name" value="{{event_model.company_name}}">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="form-label">Tên đối tượng</label>
+                            <input type="text" class="form-control" id="event_object" value="{{event_model.event_object}}">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="form-label">Danh xưng</label>
+                            <input type="text" class="form-control" id="event_title" value="{{event_model.event_title}}">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="form-label">Chức vụ</label>
+                            <input type="text" class="form-control" id="event_position" value="{{event_model.event_position}}">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="form-label">Loại sự kiện</label>
+                            <select class="custom-select mb-3" id="event_type">
+                                <option value="BIRTH_DATE" {% if event_model.event_type == 'FOUNDING_DATE' %}selected{% endif %} >Sinh nhật</option>
+                                <option value="FOUNDING_DATE" {% if event_model.event_type == 'BIRTH_DATE' %}selected{% endif %} >Ngày thành lập</option>
+                                <option value="ACTIVE_DATE" {% if event_model.event_type == 'ACTIVE_DATE' %}selected{% endif %} >Nhắc active hạn mức</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="form-label">Ngày sự kiện</label>
+                            <input class="form-control" type="text" id="input_date" name="datesingle" value="{{event_date}}">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="form-label">Địa chỉ email nhận</label>
+                            <input type="text" class="form-control" id="received_email" value="{{event_model.received_email}}">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">&nbsp</label>
+                            <label class="custom-control custom-checkbox" style="margin-left: 10px">
+                            <input type="checkbox" class="custom-control-input" id="is_loop" {% if event_model.is_loop == true %}checked{% endif %} >
+                            <span class="custom-control-label">Lặp lại</span>
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label class="form-label">Promt</label>
+                            <textarea class="form-control" id="promt" rows="10">{{event_model.promt}}</textarea>
+                        </div>
+                    </div>
+                </form>
+                <div style="float: right">
+                    <button class="btn btn-primary" id="btn-create-event" disabled>Lưu Sự Kiện</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+    <script src="{{ url_for('static', path='/js/datetime.js') }}" ></script>
+{% endblock %}

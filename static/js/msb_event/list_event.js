@@ -1,11 +1,13 @@
 $(document).ready(function () {
+    searchEvent(true);
+
     $("#search_event").click(function(){
-        searchEvent()
+        searchEvent(false)
     });
 });
 
 
-function searchEvent(){
+function searchEvent(is_first){
     $('#loading-overlay').addClass('active').show();
     var input_date = $('#input_date').val();
 
@@ -13,12 +15,13 @@ function searchEvent(){
     var input_event_object =  $('#event_object').val();
     var input_event_type =  $('#event_type').val();
 
-
-    if (input_company_name.trim() === '' && input_event_object.trim() === '' && input_event_type.trim() === ''){
-        pushNotification('Cảnh báo', 'Vui lòng nhập ít nhất 1 thông tin', 'warning')
-        $('#loading-overlay').removeClass('active');
-        $('#loading-overlay').fadeOut(500);
-        return
+    if (!is_first){
+        if (input_company_name.trim() === '' && input_event_object.trim() === '' && input_event_type.trim() === ''){
+            pushNotification('Cảnh báo', 'Vui lòng nhập ít nhất 1 thông tin', 'warning')
+            $('#loading-overlay').removeClass('active');
+            $('#loading-overlay').fadeOut(500);
+            return
+        }
     }
 
     $.ajax({
@@ -53,15 +56,12 @@ function searchEvent(){
                             '<td><span class="badge badge-' + (item.is_active == false ? 'danger"> Inactive </span></td>' : 'success"> Active </span></td>') +
                             '<td><span class="badge badge-' + (item.is_loop == false ? 'warning"> single-run </span></td>' : 'info"> Loop </span></td>') +
                             '<td>' +
-                                '<a href="#"  onclick="getDetailEvent(' + item.id + ')"' +
+                                '<a href="/msb-event/list-event/' + item.id + '"' +
                                 '<i class="align-middle far fa-fw fa-edit"></i></a>' +
                             '</td>' +
                         '</tr>'
                         )
                     });
-                    $('#bill_code').val("");
-                    $('#cust_phone').val("");
-                    $('#cust_name').val("");
 
                     pushNotification('Success', 'Tìm kiếm thành công', 'success');
                 }

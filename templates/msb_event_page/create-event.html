@@ -1,17 +1,22 @@
 {% extends 'base/base.html' %}
 
 {% block title %}
-    <title>List Event - MSB Customer Care</title>
+<title>Create Event - MSB Customer Care</title>
+{% endblock %}
+
+{% block css %}
+<style>
+  td img {
+    max-width: 100%;
+    height: auto;
+  }
+</style>
 {% endblock %}
 
 {% block content %}
 <h1 class="h3 mb-3 text-primary">Tạo mới Sự kiện</h1>
 <input type="text" class="form-control visible" id="event_id" value="" readonly style="display: none">
-<!--<nav aria-label="breadcrumb">-->
-<!--    <ol class="breadcrumb">-->
-<!--        <li class="breadcrumb-item"><a href="/msb-event/list-event">Quay lại</a></li>-->
-<!--    </ol>-->
-<!--</nav>-->
+
 
 <div class="row">
     <div class="col-12 col-xl-6">
@@ -25,7 +30,8 @@
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label class="form-label">Tên doanh nghiệp</label>
-                            <input type="text" class="form-control" id="company_name" placeholder="Ngân hàng TMCP Hàng Hải Việt Nam">
+                            <input type="text" class="form-control" id="company_name"
+                                   placeholder="Ngân hàng TMCP Hàng Hải Việt Nam">
                         </div>
                     </div>
 
@@ -49,14 +55,15 @@
                             <label class="form-label">Loại sự kiện</label>
                             <select class="custom-select mb-3" id="event_type">
                                 <option value="" disabled selected>-- Chọn loại sự kiện --</option>
-                                <option value="CREATE">Sinh nhật</option>
-                                <option value="REJECT">Ngày thành lập</option>
-                                <option value="APPROVE">Nhắc active hạn mức</option>
+                                <option value="BIRTH_DATE">Sinh nhật</option>
+                                <option value="FOUNDING_DATE">Ngày thành lập</option>
+                                <option value="ACTIVE_DATE">Nhắc active hạn mức</option>
                             </select>
                         </div>
                         <div class="form-group col-md-6">
                             <label class="form-label">Ngày sự kiện</label>
-                            <input class="form-control" type="text" id="input_date" name="datesingle" value={{date_picker}}>
+                            <input class="form-control" type="text" id="input_date" name="datesingle"
+                                   value={{date_picker}}>
                         </div>
                     </div>
 
@@ -68,8 +75,8 @@
                         <div class="form-group">
                             <label class="form-label">&nbsp</label>
                             <label class="custom-control custom-checkbox" style="margin-left: 10px">
-                            <input type="checkbox" class="custom-control-input" id="is_loop" checked>
-                            <span class="custom-control-label">Lặp lại</span>
+                                <input type="checkbox" class="custom-control-input" id="is_loop" checked>
+                                <span class="custom-control-label">Lặp lại</span>
                             </label>
                         </div>
                     </div>
@@ -78,13 +85,46 @@
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label class="form-label">Promt</label>
-                            <textarea class="form-control" id="promt" placeholder="Ví dụ: Viết theo phong cách lịch sự, trang trọng ..." rows="10"></textarea>
+                            <textarea class="form-control" id="promt"
+                                      placeholder="Ví dụ: Viết theo phong cách lịch sự, trang trọng ..."
+                                      rows="10"></textarea>
                         </div>
                     </div>
                 </form>
                 <div style="float: right">
-                    <button class="btn btn-primary" onclick="createEvent()">Tạo Sự Kiện</button>
+                    <button class="btn btn-primary" id="btn-create-event">Tạo Sự Kiện</button>
+                    <button class="btn btn-secondary" id="btn-preview-event">Xem trước</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-xl-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title text-secondary">Xem trước thông điệp</h5>
+                <h6 class="card-subtitle text-muted">Nội dung mẫu của thông điệp sẽ hiện thị tại đây</h6>
+            </div>
+            <div class="card-body" style="display: flex; justify-content:center">
+                <table cellpadding="0" cellspacing="0" border="0" style="width:75%">
+                    <tbody>
+                        <tr>
+                            <td id="event_header"></td>
+                        </tr>
+                        <tr>
+                            <td><p>&nbsp;</p></td>
+                        </tr>
+                        <tr>
+                            <td id="event_preview"></td>
+                        </tr>
+                        <tr>
+                            <td><p>&nbsp;</p></td>
+                        </tr>
+                        <tr>
+                            <td id="event_footer"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -92,6 +132,6 @@
 {% endblock %}
 
 {% block script %}
-    <script src="{{ url_for('static', path='/js/datetime.js') }}" ></script>
-    <script src="{{ url_for('static', path='/js/msb_event/list_event.js') }}" ></script>
+<script src="{{ url_for('static', path='/js/datetime.js') }}"></script>
+<script src="{{ url_for('static', path='/js/msb_event/create_event.js') }}"></script>
 {% endblock %}
