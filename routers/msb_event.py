@@ -185,40 +185,66 @@ async def preview_an_event(user: user_dependency,
             is_loop=create_event.is_loop
         )
 
-        if event.event_type == 'BIRTH_DATE':
-            inp_event_type = "chúc mừng sinh nhật"
-        elif event.event_type == 'FOUNDING_DATE':
-            inp_event_type = "chúc mừng ngày thành lập doanh nghiệp"
-        elif event.event_type == 'ACTIVE_DATE':
-            inp_event_type = "nhắc khách hàng kích hoạt hạn mức"
+        # if event.event_type == 'BIRTH_DATE':
+        #     inp_event_type = "chúc mừng sinh nhật"
+        # elif event.event_type == 'FOUNDING_DATE':
+        #     inp_event_type = "chúc mừng ngày thành lập doanh nghiệp"
+        # elif event.event_type == 'ACTIVE_DATE':
+        #     inp_event_type = "nhắc khách hàng kích hoạt hạn mức"
 
         headers = {
             "Authorization": f"Bearer {config('OPEN_API_KEY')}",
             "Content-Type": "application/json"
         }
 
-        data = {
-            "model": "gpt-4o",
-            "messages": [
-                {"role": "system", "content": "Bạn là một người đại diện cho ngân hàng TMCP hàng hải MSB và là người chăm sóc khách hàng"},
-                {
-                    "role": "user",
-                    "content": f""" Hãy viết cho tôi một email hoàn chỉnh để {inp_event_type} cho {event.event_title} {event.event_object}
-                                    hiện đang là {event.event_position} tại doanh nghiệp có tên là {event.company_name}.
-                                    Hãy chú ý viết theo các yêu cầu sau:
-                                    - {event.promt}
-                                    - Phần email closing chỉ cần ghi là "Ngân hàng TMCP Hàng Hải MSB", không cần để sẵn biến để tôi thay thế
-                                    - Ngắn gọn khoảng 4-6 câu
-                                    - Trả lời kết quả dưới dạng json như sau và không trả gì thêm ngoài json
-                                    {{   
-                                        "subject": "Dòng tiêu đề mail",
-                                        "body_html": "Nội dung email ở định dạng HTML"
-                                    }}
-                                    """
-                }
-            ]
-        }
+        if event.event_type == 'BIRTH_DATE':
+            data = {
+                "model": "gpt-4o-mini",
+                "messages": [
+                    {"role": "system", "content": "Bạn là một người đại diện cho ngân hàng TMCP hàng hải MSB và là người chăm sóc khách hàng"},
+                    {
+                        "role": "user",
+                        "content": f""" Hãy viết cho tôi một email hoàn chỉnh để chúc mừng sinh nhật cho {event.event_title} {event.event_object}
+                                        hiện đang là {event.event_position} tại doanh nghiệp có tên là {event.company_name}.
+                                        Hãy chú ý viết theo các yêu cầu sau:
+                                        - {event.promt}
+                                        - Phần email closing chỉ cần ghi là "Ngân hàng TMCP Hàng Hải MSB", không cần để sẵn biến để tôi thay thế
+                                        - Ngắn gọn khoảng 5-7 câu
+                                        - Chú ý không sử dụng từ "năm mới hoặc năm nay" do dịch tiếng anh sang tiếng việt
+                                        - Trả lời kết quả dưới dạng json như sau và không trả gì thêm ngoài json
+                                        {{   
+                                            "subject": "Dòng tiêu đề mail",
+                                            "body_html": "Nội dung email ở định dạng HTML"
+                                        }}
+                                        """
+                    }
+                ]
+            }
 
+        elif event.event_type == 'FOUNDING_DATE':
+
+            data = {
+                "model": "gpt-4o-mini",
+                "messages": [
+                    {"role": "system",
+                     "content": "Bạn là một người đại diện cho ngân hàng TMCP hàng hải MSB và là người chăm sóc khách hàng"},
+                    {
+                        "role": "user",
+                        "content": f""" Trên vai trò là người đại diện của ngân hàng TMCP MSB và là người chăm sóc khách hàng hãy viết cho tôi một email hoàn chỉnh để 
+                                        cảm ơn và chúc mừng nhân ngày thành lập thứ {datetime.now().year - event.event_year} của doanh nghiệp có tên là {event.company_name}.
+                                        Hãy chú ý viết theo các yêu cầu sau:
+                                        - {event.promt}
+                                        - Phần email closing chỉ cần ghi là "Ngân hàng TMCP Hàng Hải MSB", không cần để sẵn biến để tôi thay thế
+                                        - Ngắn gọn khoảng 8-10 câu
+                                        - Trả lời kết quả dưới dạng JSON như sau và không trả gì thêm ngoài Json
+                                        {{   
+                                            "subject": "Dòng tiêu đề mail",
+                                            "body_html": "Nội dung email ở định dạng HTML"
+                                        }}
+                                        """
+                    }
+                ]
+            }
 
         # Call OpenAI:
         response = requests.post(

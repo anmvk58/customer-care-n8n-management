@@ -22,7 +22,7 @@
     <div class="col-12 col-xl-6">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title text-secondary">Thông tin chi tiết sự kiện</h5>
+                <h5 class="card-title text-info">Thông tin chi tiết sự kiện</h5>
                 <h6 class="card-subtitle text-muted">Nhập các trường thông tin bên dưới để tạo sự kiện</h6>
             </div>
             <div class="card-body">
@@ -57,7 +57,7 @@
                                 <option value="" disabled selected>-- Chọn loại sự kiện --</option>
                                 <option value="BIRTH_DATE">Sinh nhật</option>
                                 <option value="FOUNDING_DATE">Ngày thành lập</option>
-                                <option value="ACTIVE_DATE">Nhắc active hạn mức</option>
+                                <option value="ACTIVE_DATE" disabled>Nhắc active hạn mức</option>
                             </select>
                         </div>
                         <div class="form-group col-md-6">
@@ -93,7 +93,7 @@
                 </form>
                 <div style="float: right">
                     <button class="btn btn-primary" id="btn-create-event">Tạo Sự Kiện</button>
-                    <button class="btn btn-secondary" id="btn-preview-event">Xem trước</button>
+                    <button class="btn btn-info" id="btn-preview-event">Xem trước</button>
                 </div>
             </div>
         </div>
@@ -102,8 +102,10 @@
     <div class="col-12 col-xl-6">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title text-secondary">Xem trước thông điệp</h5>
+                <h5 class="card-title text-info">Xem trước thông điệp</h5>
                 <h6 class="card-subtitle text-muted">Nội dung mẫu của thông điệp sẽ hiện thị tại đây</h6>
+                <br>
+                <h6 class="card-subtitle text-danger"><i>Lưu ý: Ảnh header và footer mang tính minh họa do lấy sẵn từ mail chúc mừng của MSB</i></h6>
             </div>
             <div class="card-body" style="display: flex; justify-content:center">
                 <table cellpadding="0" cellspacing="0" border="0" style="width:75%">
