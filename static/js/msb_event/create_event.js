@@ -6,6 +6,33 @@ $(document).ready(function () {
     $("#btn-preview-event").click(function(){
         previewEvent()
     });
+
+
+    $('#event_type').on('change', function () {
+    const selectedValue = $(this).val();
+
+    if (selectedValue === 'ACTIVE_DATE') {
+        $('#object_label').text("Khoản tiền được phê duyệt");
+        $('#event_object').attr("placeholder", "2000000000");
+
+        $('#title_label').text("Tần suất");
+        $('#event_title').attr("placeholder", "Mặc định");
+
+        $('#position_label').text("Đơn vị");
+        $('#event_position').attr("placeholder", "Ngày");
+    } else {
+        $('#object_label').text("Tên đối tượng");
+        $('#event_object').attr("placeholder", "Vũ Hà Phương");
+
+        $('#title_label').text("Danh xưng");
+        $('#event_title').attr("placeholder", "Bà");
+
+        $('#position_label').text("Chức vụ");
+        $('#event_position').attr("placeholder", "Giám đốc");
+    }
+
+  });
+
 });
 
 

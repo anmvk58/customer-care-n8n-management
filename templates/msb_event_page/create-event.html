@@ -26,7 +26,25 @@
                 <h6 class="card-subtitle text-muted">Nhập các trường thông tin bên dưới để tạo sự kiện</h6>
             </div>
             <div class="card-body">
+
                 <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="form-label">Loại sự kiện</label>
+                            <select class="custom-select" id="event_type">
+                                <option value="" disabled selected>-- Chọn loại sự kiện --</option>
+                                <option value="BIRTH_DATE">Sinh nhật</option>
+                                <option value="FOUNDING_DATE">Ngày thành lập</option>
+                                <option value="ACTIVE_DATE">Nhắc active hạn mức</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="form-label">Ngày sự kiện</label>
+                            <input class="form-control" type="text" id="input_date" name="datesingle"
+                                   value={{date_picker}}>
+                        </div>
+                    </div>
+
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label class="form-label">Tên doanh nghiệp</label>
@@ -37,33 +55,16 @@
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label class="form-label">Tên đối tượng</label>
+                            <label class="form-label" id="object_label">Tên đối tượng</label>
                             <input type="text" class="form-control" id="event_object" placeholder="Vũ Hà Phương">
                         </div>
                         <div class="form-group col-md-3">
-                            <label class="form-label">Danh xưng</label>
+                            <label class="form-label" id="title_label">Danh xưng</label>
                             <input type="text" class="form-control" id="event_title" placeholder="Bà">
                         </div>
                         <div class="form-group col-md-3">
-                            <label class="form-label">Chức vụ</label>
+                            <label class="form-label" id="position_label">Chức vụ</label>
                             <input type="text" class="form-control" id="event_position" placeholder="Giám đốc">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label class="form-label">Loại sự kiện</label>
-                            <select class="custom-select mb-3" id="event_type">
-                                <option value="" disabled selected>-- Chọn loại sự kiện --</option>
-                                <option value="BIRTH_DATE">Sinh nhật</option>
-                                <option value="FOUNDING_DATE">Ngày thành lập</option>
-                                <option value="ACTIVE_DATE" disabled>Nhắc active hạn mức</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="form-label">Ngày sự kiện</label>
-                            <input class="form-control" type="text" id="input_date" name="datesingle"
-                                   value={{date_picker}}>
                         </div>
                     </div>
 
