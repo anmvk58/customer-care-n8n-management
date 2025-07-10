@@ -17,18 +17,20 @@ $(document).ready(function () {
 
         $('#title_label').text("Tần suất");
         $('#event_title').attr("placeholder", "Mặc định");
+        $('#event_title').attr("disabled", true);
 
-        $('#position_label').text("Đơn vị");
-        $('#event_position').attr("placeholder", "Ngày");
+        $('#position_label').hide();
+        $('#event_position').hide();
     } else {
         $('#object_label').text("Tên đối tượng");
         $('#event_object').attr("placeholder", "Vũ Hà Phương");
 
         $('#title_label').text("Danh xưng");
         $('#event_title').attr("placeholder", "Bà");
+        $('#event_title').attr("disabled", false);
 
-        $('#position_label').text("Chức vụ");
-        $('#event_position').attr("placeholder", "Giám đốc");
+        $('#position_label').show();
+        $('#event_position').show();
     }
 
   });
