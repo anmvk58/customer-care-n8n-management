@@ -1,5 +1,5 @@
 import ast
-from datetime import datetime
+from datetime import datetime, date
 from typing import Annotated, Optional
 from pydantic import BaseModel, computed_field
 from sqlalchemy.orm import Session
@@ -232,6 +232,31 @@ async def preview_an_event(user: user_dependency,
                         "role": "user",
                         "content": f""" Trên vai trò là người đại diện của ngân hàng TMCP MSB và là người chăm sóc khách hàng hãy viết cho tôi một email hoàn chỉnh để 
                                         cảm ơn và chúc mừng nhân ngày thành lập thứ {datetime.now().year - event.event_year} của doanh nghiệp có tên là {event.company_name}.
+                                        Hãy chú ý viết theo các yêu cầu sau:
+                                        - {event.promt}
+                                        - Phần email closing chỉ cần ghi là "Ngân hàng TMCP Hàng Hải MSB", không cần để sẵn biến để tôi thay thế
+                                        - Ngắn gọn khoảng 8-10 câu
+                                        - Trả lời kết quả dưới dạng JSON như sau và không trả gì thêm ngoài Json
+                                        {{   
+                                            "subject": "Dòng tiêu đề mail",
+                                            "body_html": "Nội dung email ở định dạng HTML"
+                                        }}
+                                        """
+                    }
+                ]
+            }
+
+        elif event.event_type == 'ACTIVE_DATE':
+            data = {
+                "model": "gpt-4o-mini",
+                "messages": [
+                    {"role": "system",
+                     "content": "Bạn là một người đại diện cho ngân hàng TMCP hàng hải MSB và là người chăm sóc khách hàng"},
+                    {
+                        "role": "user",
+                        "content": f""" Trên vai trò là người đại diện của ngân hàng TMCP MSB và là sale bán hàng hãy viết cho tôi một email hoàn chỉnh để nhắc 
+                                        doanh nghiệp có tên là {event.company_name} hãy kích hoạt khoản vay có giá trị {event.event_object} đã được phê duyệt trên MSB.
+                                        Chỉ còn {date(event.event_year, event.event_month, event.event_day) - date.today()} ngày nữa để kích hoạt. Quá hạn sẽ phải xét duyệt lại.
                                         Hãy chú ý viết theo các yêu cầu sau:
                                         - {event.promt}
                                         - Phần email closing chỉ cần ghi là "Ngân hàng TMCP Hàng Hải MSB", không cần để sẵn biến để tôi thay thế
