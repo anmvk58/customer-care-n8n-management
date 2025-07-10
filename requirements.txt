@@ -1,0 +1,11 @@
+fastapi==0.115.12
+Jinja2==3.1.6
+uvicorn==0.34.2
+SQLAlchemy==2.0.40
+pymysql==1.1.1
+passlib==1.7.4
+python-jose[cryptography]==3.4.0
+python-multipart==0.0.20
+python-decouple==3.8
+bcrypt==4.0.1
+requests==2.32.3
