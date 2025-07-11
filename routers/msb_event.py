@@ -256,7 +256,7 @@ async def preview_an_event(user: user_dependency,
                         "role": "user",
                         "content": f""" Trên vai trò là người đại diện của ngân hàng TMCP MSB và là sale bán hàng hãy viết cho tôi một email hoàn chỉnh để nhắc 
                                         doanh nghiệp có tên là {event.company_name} hãy kích hoạt khoản vay có giá trị {event.event_object} đã được phê duyệt trên MSB.
-                                        Chỉ còn {date(event.event_year, event.event_month, event.event_day) - date.today()} ngày nữa để kích hoạt. Quá hạn sẽ phải xét duyệt lại.
+                                        Chỉ còn {(date(event.event_year, event.event_month, event.event_day) - date.today()).days} ngày nữa để kích hoạt. Quá hạn sẽ phải xét duyệt lại.
                                         Hãy chú ý viết theo các yêu cầu sau:
                                         - {event.promt}
                                         - Phần email closing chỉ cần ghi là "Ngân hàng TMCP Hàng Hải MSB", không cần để sẵn biến để tôi thay thế
