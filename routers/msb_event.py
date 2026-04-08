@@ -82,15 +82,13 @@ async def get_event_by_filter(user: user_dependency,
         if event_filter.event_type and event_filter.event_type.strip() != "":
             query = query.filter(CompanyEventScheduler.event_type == event_filter.event_type)
 
-        if event_filter.event_date == get_current_date():
-            pass
-        else:
+        if event_filter.event_date and event_filter.event_date > 0:
             query = query.filter(CompanyEventScheduler.event_year == event_filter.event_date // 10000,
                                  CompanyEventScheduler.event_month == (event_filter.event_date % 10000) // 100,
                                  CompanyEventScheduler.event_day == event_filter.event_date % 100
                                  )
 
-        print(query)
+        # print(query)
 
         return {
             "error": "",

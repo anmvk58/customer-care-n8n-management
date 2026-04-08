@@ -15,16 +15,69 @@ function searchEvent(is_first){
     var input_event_object =  $('#event_object').val();
     var input_event_type =  $('#event_type').val();
 
-    if (!is_first){
-        if (input_company_name.trim() === '' && input_event_object.trim() === '' && input_event_type.trim() === ''){
-            pushNotification('Cảnh báo', 'Vui lòng nhập ít nhất 1 thông tin', 'warning')
+    // if (!is_first){
+    //     if (input_company_name.trim() === '' && input_event_object.trim() === '' && input_event_type.trim() === ''){
+    //         pushNotification('Cảnh báo', 'Vui lòng nhập ít nhất 1 thông tin', 'warning')
+    //         $('#loading-overlay').removeClass('active');
+    //         $('#loading-overlay').fadeOut(500);
+    //         return
+    //     }
+    // }
+
+    // Call the first time or reload web:
+    if (is_first) {
+        $.ajax({
+            url: '/msb-event/filter-event',
+            type: 'POST',
+            data: JSON.stringify({
+                company_name: null,
+                event_object: null,
+                event_type: null,
+                event_date: 0
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + getCookie('access_token')
+            },
+            success: function(response, status, xhr) {
+                if (xhr.status === 200) {
+                    console.log(response)
+                    $("#event_data").empty();
+                    response.data.forEach((item, index) => {
+
+                        $("#event_data").append(
+                        '<tr>' +
+                            '<td>'  + (index + 1) + '</td>' +
+                            '<td>'  + item.company_name + '</td>' +
+                            '<td>'  + item.event_object + '</td>' +
+                            '<td>'  + item.event_position + '</td>' +
+                            '<td>'  + item.event_type + '</td>' +
+                            '<td>'  + item.full_event + '</td>' +
+                            '<td>'  + item.promt + '</td>' +
+                            '<td>'  + item.received_email + '</td>' +
+                            '<td><span class="badge badge-' + (item.is_active == false ? 'danger"> Inactive </span></td>' : 'success"> Active </span></td>') +
+                            '<td><span class="badge badge-' + (item.is_loop == false ? 'warning"> single-run </span></td>' : 'info"> Loop </span></td>') +
+                            '<td>' +
+                                '<a href="/msb-event/list-event/' + item.id + '"' +
+                                '<i class="align-middle far fa-fw fa-edit"></i></a>' +
+                            '</td>' +
+                        '</tr>'
+                        )
+                    });
+
+                    pushNotification('Success', 'Tìm kiếm thành công', 'success');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("Lỗi khi gọi API:", error);
+                pushNotification('Failed', 'Tìm kiếm thất bại', 'error')
+            }
+    }).always(function(){
             $('#loading-overlay').removeClass('active');
             $('#loading-overlay').fadeOut(500);
-            return
-        }
-    }
-
-    $.ajax({
+        });
+    } else {
+        $.ajax({
             url: '/msb-event/filter-event',
             type: 'POST',
             data: JSON.stringify({
@@ -71,7 +124,8 @@ function searchEvent(is_first){
                 pushNotification('Failed', 'Tìm kiếm thất bại', 'error')
             }
     }).always(function(){
-        $('#loading-overlay').removeClass('active');
-        $('#loading-overlay').fadeOut(500);
-    });
+            $('#loading-overlay').removeClass('active');
+            $('#loading-overlay').fadeOut(500);
+        });
+    }
 }
